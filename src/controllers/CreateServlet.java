@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -39,6 +40,10 @@ public class CreateServlet extends HttpServlet {
 
             String content = request.getParameter("content");
             task.setContent(content);
+
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            task.setCreated_at(currentTime);
+            task.setUpdated_at(currentTime);
 
             em.getTransaction().begin();
             em.persist(task);
